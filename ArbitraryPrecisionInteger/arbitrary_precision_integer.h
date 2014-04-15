@@ -29,6 +29,7 @@ public:
 	friend ArbitraryPrecisionInteger operator+(const ArbitraryPrecisionInteger&, int);
 	friend bool operator<(const ArbitraryPrecisionInteger &, const ArbitraryPrecisionInteger &);
 	friend bool operator>(const ArbitraryPrecisionInteger &, const ArbitraryPrecisionInteger &);
+	friend bool operator>=(const ArbitraryPrecisionInteger &, const ArbitraryPrecisionInteger &);
 	friend ArbitraryPrecisionInteger operator* (const ArbitraryPrecisionInteger &, bool);
 	friend ArbitraryPrecisionInteger operator- (const ArbitraryPrecisionInteger &);
 	friend ArbitraryPrecisionInteger operator- (const ArbitraryPrecisionInteger &, const ArbitraryPrecisionInteger &);
@@ -42,7 +43,10 @@ public:
 	friend ArbitraryPrecisionInteger operator/ (const ArbitraryPrecisionInteger &, const ArbitraryPrecisionInteger &);
 	// ว๓ำเสý
 	friend ArbitraryPrecisionInteger operator% (const ArbitraryPrecisionInteger &, const ArbitraryPrecisionInteger &);
-	void operator= (const ArbitraryPrecisionInteger &);
+	// ละตศ
+	friend bool operator== (const ArbitraryPrecisionInteger &, const ArbitraryPrecisionInteger &);
+	ArbitraryPrecisionInteger& operator= (const ArbitraryPrecisionInteger &);
+	ArbitraryPrecisionInteger& operator= (int n);
 	void raw_output(ostream&) const;
 };
 

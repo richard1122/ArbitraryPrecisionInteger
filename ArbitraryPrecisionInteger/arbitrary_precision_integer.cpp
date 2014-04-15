@@ -4,8 +4,7 @@ using namespace std;
 
 ArbitraryPrecisionInteger::ArbitraryPrecisionInteger() :length(0), negative(false) {};
 
-ArbitraryPrecisionInteger::ArbitraryPrecisionInteger(int num) {
-	ArbitraryPrecisionInteger();
+ArbitraryPrecisionInteger::ArbitraryPrecisionInteger(int num) : ArbitraryPrecisionInteger() {
 	if (num < 0) negative = true, num = -num;
 	while (num) {
 		digit.push_back(num % 10);
@@ -69,8 +68,9 @@ ArbitraryPrecisionInteger ArbitraryPrecisionInteger::sub(const ArbitraryPrecisio
 
 	while (length != this->length) {
 		digit[length] = this->digit[length] - carry;
-		++length;
 		carry = 0;
+		if (digit[length] < 0) digit[length] += 10, carry = 1;
+		++length;
 	}
 
 	ArbitraryPrecisionInteger temp(length, digit, false);
@@ -182,10 +182,11 @@ ArbitraryPrecisionInteger operator* (const ArbitraryPrecisionInteger &a, const A
 	return answer;
 }
 
-void ArbitraryPrecisionInteger::operator=(const ArbitraryPrecisionInteger &num) {
+ArbitraryPrecisionInteger& ArbitraryPrecisionInteger::operator=(const ArbitraryPrecisionInteger &num) {
 	this->negative = num.isNegative();
 	this->digit = num.digit;
 	this->length = num.length;
+	return *this;
 }
 
 ArbitraryPrecisionInteger operator<< (const ArbitraryPrecisionInteger &a, int times) {
@@ -209,17 +210,16 @@ ArbitraryPrecisionInteger operator/ (const ArbitraryPrecisionInteger &a, const A
 	while (true) {
 		if (iter == tempA.digit.rend()) break;
 		temp = (temp << 1) + *iter;
+		++iter;
 		if (temp < tempB) {
-			++iter;
 			ans = ans << 1;
 			continue;
 		}
-		for (int i = 1; i != 10; ++i) {
-			if (temp < b * i) {
+		for (int i = 9; i >= 1; --i) {
+			if (temp >= b * i) {
 				// 找到了一个可用的解
-				ans = (ans << 1) + (i - 1);
-				temp = temp - b * (i - 1);
-				++iter;
+				ans = (ans << 1) + i;
+				temp = temp - b * i;
 				break;
 			}
 		}
@@ -231,4 +231,12 @@ ArbitraryPrecisionInteger operator/ (const ArbitraryPrecisionInteger &a, const A
 
 ArbitraryPrecisionInteger operator% (const ArbitraryPrecisionInteger &a, const ArbitraryPrecisionInteger &b) {
 	return a - a / b * b;
+}
+
+bool operator== (const ArbitraryPrecisionInteger &a, const ArbitraryPrecisionInteger &b) {
+	return !(a < b || a > b);
+}
+
+bool operator>=(const ArbitraryPrecisionInteger &a, const ArbitraryPrecisionInteger &b) {
+	return !(a < b);
 }
