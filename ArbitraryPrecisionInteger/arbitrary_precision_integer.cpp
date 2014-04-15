@@ -2,10 +2,10 @@
 #include <iostream>
 using namespace std;
 
-AubitraryPrecisionInteger::AubitraryPrecisionInteger() :length(0), negative(false) {};
+ArbitraryPrecisionInteger::ArbitraryPrecisionInteger() :length(0), negative(false) {};
 
-AubitraryPrecisionInteger::AubitraryPrecisionInteger(int num) {
-	AubitraryPrecisionInteger();
+ArbitraryPrecisionInteger::ArbitraryPrecisionInteger(int num) {
+	ArbitraryPrecisionInteger();
 	if (num < 0) negative = true, num = -num;
 	while (num) {
 		digit.push_back(num % 10);
@@ -15,25 +15,25 @@ AubitraryPrecisionInteger::AubitraryPrecisionInteger(int num) {
 	resetZero();
 }
 
-AubitraryPrecisionInteger::AubitraryPrecisionInteger(const int &len, const vector<int> &vec, bool negative) {
-	AubitraryPrecisionInteger();
+ArbitraryPrecisionInteger::ArbitraryPrecisionInteger(const int &len, const vector<int> &vec, bool negative) {
+	ArbitraryPrecisionInteger();
 	this->length = len;
 	this->digit = vec;
 	this->negative = negative;
 }
 
-bool AubitraryPrecisionInteger::isNegative() const {
+bool ArbitraryPrecisionInteger::isNegative() const {
 	return this->negative;
 }
 
-void AubitraryPrecisionInteger::resetZero() {
+void ArbitraryPrecisionInteger::resetZero() {
 	while (length > 0 && digit.back() == 0) {
 		--length;
 		digit.pop_back();
 	}
 }
 
-AubitraryPrecisionInteger AubitraryPrecisionInteger::add(const AubitraryPrecisionInteger &num) const {
+ArbitraryPrecisionInteger ArbitraryPrecisionInteger::add(const ArbitraryPrecisionInteger &num) const {
 	vector <int> digit;
 	int length;
 
@@ -53,10 +53,10 @@ AubitraryPrecisionInteger AubitraryPrecisionInteger::add(const AubitraryPrecisio
 		digit.push_back(carry);
 		++length;
 	}
-	return AubitraryPrecisionInteger(length, digit, false);
+	return ArbitraryPrecisionInteger(length, digit, false);
 }
 
-AubitraryPrecisionInteger AubitraryPrecisionInteger::sub(const AubitraryPrecisionInteger &num) const {
+ArbitraryPrecisionInteger ArbitraryPrecisionInteger::sub(const ArbitraryPrecisionInteger &num) const {
 	vector<int> digit(this->length);
 	int length;
 	int carry = 0;
@@ -72,19 +72,19 @@ AubitraryPrecisionInteger AubitraryPrecisionInteger::sub(const AubitraryPrecisio
 		carry = 0;
 	}
 
-	AubitraryPrecisionInteger temp(length, digit, false);
+	ArbitraryPrecisionInteger temp(length, digit, false);
 	temp.resetZero();
 	return temp;
 }
 
-void AubitraryPrecisionInteger::raw_output(ostream &os) const {
+void ArbitraryPrecisionInteger::raw_output(ostream &os) const {
 	if (negative) cout << '-';
 	for (auto ai = digit.rbegin(); ai != digit.rbegin() + length; ++ai)
 		os << *ai;
 	os << endl;
 }
 
-AubitraryPrecisionInteger operator+ (const AubitraryPrecisionInteger &a, const AubitraryPrecisionInteger &b) {
+ArbitraryPrecisionInteger operator+ (const ArbitraryPrecisionInteger &a, const ArbitraryPrecisionInteger &b) {
 	if (a.isNegative() && b.isNegative()) {
 		return (-a).add(-b) * false;
 	}
@@ -101,15 +101,15 @@ AubitraryPrecisionInteger operator+ (const AubitraryPrecisionInteger &a, const A
 	return a.add(b);
 }
 
-AubitraryPrecisionInteger operator- (const AubitraryPrecisionInteger &a, const AubitraryPrecisionInteger &b) {
+ArbitraryPrecisionInteger operator- (const ArbitraryPrecisionInteger &a, const ArbitraryPrecisionInteger &b) {
 	return NULL;
 }
 
-AubitraryPrecisionInteger operator- (const AubitraryPrecisionInteger &num) {
-	return AubitraryPrecisionInteger(num.length, num.digit, !num.negative);
+ArbitraryPrecisionInteger operator- (const ArbitraryPrecisionInteger &num) {
+	return ArbitraryPrecisionInteger(num.length, num.digit, !num.negative);
 }
 
-bool operator< (const AubitraryPrecisionInteger &a, const AubitraryPrecisionInteger &b) {
+bool operator< (const ArbitraryPrecisionInteger &a, const ArbitraryPrecisionInteger &b) {
 	if (a.length < b.length) return true;
 	if (a.length > b.length) return false;
 
@@ -127,23 +127,28 @@ bool operator< (const AubitraryPrecisionInteger &a, const AubitraryPrecisionInte
 	return false;
 }
 
-bool operator>(const AubitraryPrecisionInteger &a, const AubitraryPrecisionInteger &b) {
+bool operator>(const ArbitraryPrecisionInteger &a, const ArbitraryPrecisionInteger &b) {
 	return b < a;
 }
 
-AubitraryPrecisionInteger operator* (const AubitraryPrecisionInteger &a, bool negative) {
-	return AubitraryPrecisionInteger(a.length, a.digit, a.isNegative() ^ negative);
+ArbitraryPrecisionInteger operator* (const ArbitraryPrecisionInteger &a, bool negative) {
+	return ArbitraryPrecisionInteger(a.length, a.digit, a.isNegative() ^ negative);
 }
 
-void AubitraryPrecisionInteger::operator=(const AubitraryPrecisionInteger &num) {
+ArbitraryPrecisionInteger operator* (const ArbitraryPrecisionInteger &a, const ArbitraryPrecisionInteger &b) {
+	return NULL;
+}
+
+void ArbitraryPrecisionInteger::operator=(const ArbitraryPrecisionInteger &num) {
 	this->negative = num.isNegative();
 	this->digit = num.digit;
 	this->length = num.length;
 }
 
-AubitraryPrecisionInteger operator<< (const AubitraryPrecisionInteger &a, int times) {
+ArbitraryPrecisionInteger operator<< (const ArbitraryPrecisionInteger &a, int times) {
 	vector<int> digit = a.digit;
 	vector<int> zeros(times, 0);
 	digit.insert(digit.begin(), zeros.begin(), zeros.end());
-	return AubitraryPrecisionInteger(a.length + times, digit, a.isNegative());
+	return ArbitraryPrecisionInteger(a.length + times, digit, a.isNegative());
 }
+

@@ -18,7 +18,7 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="aubitrary_precision_integer.cpp">
+    <ClCompile Include="arbitrary_precision_integer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

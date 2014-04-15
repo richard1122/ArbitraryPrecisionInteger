@@ -5,7 +5,7 @@
 #include <algorithm>
 using namespace std;
 
-class AubitraryPrecisionInteger {
+class ArbitraryPrecisionInteger {
 private:
 	bool negative;
 	vector<int> digit;
@@ -15,23 +15,27 @@ private:
 	bool isNegative() const;
 
 	// 无符号加法
-	AubitraryPrecisionInteger add(const AubitraryPrecisionInteger &) const;
+	ArbitraryPrecisionInteger add(const ArbitraryPrecisionInteger &) const;
 	// 无符号减法，保证结果不为负数
-	AubitraryPrecisionInteger sub(const AubitraryPrecisionInteger &) const;
+	ArbitraryPrecisionInteger sub(const ArbitraryPrecisionInteger &) const;
 
 public:
-	AubitraryPrecisionInteger();
-	AubitraryPrecisionInteger(int);
-	AubitraryPrecisionInteger(const int &, const vector<int> &, bool);
-	friend AubitraryPrecisionInteger operator+(const AubitraryPrecisionInteger&, const AubitraryPrecisionInteger&);
-	friend bool operator<(const AubitraryPrecisionInteger &, const AubitraryPrecisionInteger &);
-	friend bool operator>(const AubitraryPrecisionInteger &, const AubitraryPrecisionInteger &);
-	friend AubitraryPrecisionInteger operator* (const AubitraryPrecisionInteger &, bool);
-	friend AubitraryPrecisionInteger operator- (const AubitraryPrecisionInteger &);
-	friend AubitraryPrecisionInteger operator- (const AubitraryPrecisionInteger &, const AubitraryPrecisionInteger &);
+	ArbitraryPrecisionInteger();
+	ArbitraryPrecisionInteger(int);
+	ArbitraryPrecisionInteger(const int &, const vector<int> &, bool);
+	friend ArbitraryPrecisionInteger operator+(const ArbitraryPrecisionInteger&, const ArbitraryPrecisionInteger&);
+	friend bool operator<(const ArbitraryPrecisionInteger &, const ArbitraryPrecisionInteger &);
+	friend bool operator>(const ArbitraryPrecisionInteger &, const ArbitraryPrecisionInteger &);
+	friend ArbitraryPrecisionInteger operator* (const ArbitraryPrecisionInteger &, bool);
+	friend ArbitraryPrecisionInteger operator- (const ArbitraryPrecisionInteger &);
+	friend ArbitraryPrecisionInteger operator- (const ArbitraryPrecisionInteger &, const ArbitraryPrecisionInteger &);
 	// 左移运算（每次意味着*10)
-	friend AubitraryPrecisionInteger operator<< (const AubitraryPrecisionInteger &, int);
-	void operator= (const AubitraryPrecisionInteger &);
+	friend ArbitraryPrecisionInteger operator<< (const ArbitraryPrecisionInteger &, int);
+	// 高精度数乘低精度数
+	friend ArbitraryPrecisionInteger operator* (const ArbitraryPrecisionInteger &, int);
+	// 高精度数乘高精度数
+	friend ArbitraryPrecisionInteger operator* (const ArbitraryPrecisionInteger &, const ArbitraryPrecisionInteger &);
+	void operator= (const ArbitraryPrecisionInteger &);
 	void raw_output(ostream&) const;
 };
 
