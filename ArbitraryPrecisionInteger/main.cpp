@@ -7,15 +7,6 @@ using namespace std;
 int main() {
 	srand(213123213);
 
-	/*
-	int a = 24024, b = 240;
-	ArbitraryPrecisionInteger BigA(a), BigB(b);
-	ArbitraryPrecisionInteger BigAns = BigA / BigB;
-	int ans = a / b;
-	assert(BigAns == ArbitraryPrecisionInteger(ans));
-	cout << "Assert " << a << '-' << b << " success" << endl;
-	*/
-
 	while (true) {
 		int a, b;
 		int ans;
