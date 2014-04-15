@@ -3,11 +3,9 @@
 using namespace std;
 
 int main() {
-	ArbitraryPrecisionInteger a(1);
-	for (int i = 2; i != 100; ++i) {
-		a = a * i;
-	}
-	a.raw_output(cout);
+	ArbitraryPrecisionInteger a(100), b(1);
+	ArbitraryPrecisionInteger ans = a % b;
+	ans.raw_output(cout);
 	system("pause");
 	return 0;
 }

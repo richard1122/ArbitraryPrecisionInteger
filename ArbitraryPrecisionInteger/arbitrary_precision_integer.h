@@ -26,6 +26,7 @@ public:
 	ArbitraryPrecisionInteger(int);
 	ArbitraryPrecisionInteger(const int &, const vector<int> &, bool);
 	friend ArbitraryPrecisionInteger operator+(const ArbitraryPrecisionInteger&, const ArbitraryPrecisionInteger&);
+	friend ArbitraryPrecisionInteger operator+(const ArbitraryPrecisionInteger&, int);
 	friend bool operator<(const ArbitraryPrecisionInteger &, const ArbitraryPrecisionInteger &);
 	friend bool operator>(const ArbitraryPrecisionInteger &, const ArbitraryPrecisionInteger &);
 	friend ArbitraryPrecisionInteger operator* (const ArbitraryPrecisionInteger &, bool);
@@ -37,6 +38,10 @@ public:
 	friend ArbitraryPrecisionInteger operator* (const ArbitraryPrecisionInteger &, int);
 	// 高精度数乘高精度数
 	friend ArbitraryPrecisionInteger operator* (const ArbitraryPrecisionInteger &, const ArbitraryPrecisionInteger &);
+	// 高精度除以高精度
+	friend ArbitraryPrecisionInteger operator/ (const ArbitraryPrecisionInteger &, const ArbitraryPrecisionInteger &);
+	// 求余数
+	friend ArbitraryPrecisionInteger operator% (const ArbitraryPrecisionInteger &, const ArbitraryPrecisionInteger &);
 	void operator= (const ArbitraryPrecisionInteger &);
 	void raw_output(ostream&) const;
 };

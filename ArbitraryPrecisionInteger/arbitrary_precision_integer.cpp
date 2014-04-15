@@ -69,6 +69,7 @@ ArbitraryPrecisionInteger ArbitraryPrecisionInteger::sub(const ArbitraryPrecisio
 
 	while (length != this->length) {
 		digit[length] = this->digit[length] - carry;
+		++length;
 		carry = 0;
 	}
 
@@ -123,8 +124,13 @@ ArbitraryPrecisionInteger operator+ (const ArbitraryPrecisionInteger &a, const A
 	return a.add(b);
 }
 
+ArbitraryPrecisionInteger operator+ (const ArbitraryPrecisionInteger &a, int n) {
+	ArbitraryPrecisionInteger temp(n);
+	return a + temp;
+}
+
 ArbitraryPrecisionInteger operator- (const ArbitraryPrecisionInteger &a, const ArbitraryPrecisionInteger &b) {
-	return NULL;
+	return a + -b;
 }
 
 ArbitraryPrecisionInteger operator- (const ArbitraryPrecisionInteger &num) {
@@ -186,5 +192,43 @@ ArbitraryPrecisionInteger operator<< (const ArbitraryPrecisionInteger &a, int ti
 	vector<int> digit = a.digit;
 	vector<int> zeros(times, 0);
 	digit.insert(digit.begin(), zeros.begin(), zeros.end());
-	return ArbitraryPrecisionInteger(a.length + times, digit, a.isNegative());
+	ArbitraryPrecisionInteger temp(a.length + times, digit, a.isNegative());
+	temp.resetZero();
+	return temp;
+}
+
+ArbitraryPrecisionInteger operator/ (const ArbitraryPrecisionInteger &a, const ArbitraryPrecisionInteger &b) {
+	ArbitraryPrecisionInteger tempA = a, tempB = b;
+
+	bool negative = tempA.isNegative() ^ tempB.isNegative();
+	if (a.isNegative()) tempA = -tempA;
+	if (b.isNegative()) tempB = -tempB;
+
+	ArbitraryPrecisionInteger temp, ans;
+	auto iter = tempA.digit.rbegin();
+	while (true) {
+		if (iter == tempA.digit.rend()) break;
+		temp = (temp << 1) + *iter;
+		if (temp < tempB) {
+			++iter;
+			ans = ans << 1;
+			continue;
+		}
+		for (int i = 1; i != 10; ++i) {
+			if (temp < b * i) {
+				// 找到了一个可用的解
+				ans = (ans << 1) + (i - 1);
+				temp = temp - b * (i - 1);
+				++iter;
+				break;
+			}
+		}
+	}
+	ans.resetZero(); 
+	ans.negative = negative;
+	return ans;
+}
+
+ArbitraryPrecisionInteger operator% (const ArbitraryPrecisionInteger &a, const ArbitraryPrecisionInteger &b) {
+	return a - a / b * b;
 }
