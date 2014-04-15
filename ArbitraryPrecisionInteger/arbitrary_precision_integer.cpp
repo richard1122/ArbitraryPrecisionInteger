@@ -77,7 +77,6 @@ ArbitraryPrecisionInteger ArbitraryPrecisionInteger::sub(const ArbitraryPrecisio
 	return temp;
 }
 
-
 ArbitraryPrecisionInteger ArbitraryPrecisionInteger::singleMul(int n) const {
 	vector<int> digit;
 	int carry = 0;
