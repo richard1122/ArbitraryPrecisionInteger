@@ -18,6 +18,8 @@ private:
 	ArbitraryPrecisionInteger add(const ArbitraryPrecisionInteger &) const;
 	// 无符号减法，保证结果不为负数
 	ArbitraryPrecisionInteger sub(const ArbitraryPrecisionInteger &) const;
+	// 高精度数乘整数，保证都是正数
+	ArbitraryPrecisionInteger singleMul(int) const;
 
 public:
 	ArbitraryPrecisionInteger();

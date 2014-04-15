@@ -3,8 +3,8 @@
 using namespace std;
 
 int main() {
-	ArbitraryPrecisionInteger a(12345), b(-12344);
-	ArbitraryPrecisionInteger result = a << 1;
+	ArbitraryPrecisionInteger a(12345), b(0);
+	ArbitraryPrecisionInteger result = a * b;
 	result.raw_output(cout);
 	system("pause");
 	return 0;

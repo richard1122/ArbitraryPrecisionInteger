@@ -77,7 +77,30 @@ ArbitraryPrecisionInteger ArbitraryPrecisionInteger::sub(const ArbitraryPrecisio
 	return temp;
 }
 
+
+ArbitraryPrecisionInteger ArbitraryPrecisionInteger::singleMul(int n) const {
+	vector<int> digit;
+	int carry = 0;
+
+	for (auto iter : this->digit) {
+		int sum = carry + iter * n;
+		digit.push_back(sum % 10);
+		carry = sum / 10;
+	}
+
+	while (carry != 0) {
+		digit.push_back(carry % 10);
+		carry /= 10;
+	}
+	return ArbitraryPrecisionInteger(digit.size(), digit, false);
+}
+
 void ArbitraryPrecisionInteger::raw_output(ostream &os) const {
+	if (digit.size() == 0) {
+		cout << '0' << endl;
+		return;
+	}
+
 	if (negative) cout << '-';
 	for (auto ai = digit.rbegin(); ai != digit.rbegin() + length; ++ai)
 		os << *ai;
@@ -135,8 +158,23 @@ ArbitraryPrecisionInteger operator* (const ArbitraryPrecisionInteger &a, bool ne
 	return ArbitraryPrecisionInteger(a.length, a.digit, a.isNegative() ^ negative);
 }
 
+ArbitraryPrecisionInteger operator* (const ArbitraryPrecisionInteger &a, int n) {
+	bool negative = a.isNegative() ^ (n < 0);
+
+	return a.singleMul(n) * negative;
+}
+
 ArbitraryPrecisionInteger operator* (const ArbitraryPrecisionInteger &a, const ArbitraryPrecisionInteger &b) {
-	return NULL;
+	ArbitraryPrecisionInteger answer;
+	bool negative = a.isNegative() ^ b.isNegative();
+
+	for (int i = 0; i != b.length; ++i) {
+		answer = answer + ((a * b.digit[i]) << i);
+	}
+	
+	answer.negative = negative;
+	answer.resetZero();
+	return answer;
 }
 
 void ArbitraryPrecisionInteger::operator=(const ArbitraryPrecisionInteger &num) {
@@ -151,4 +189,3 @@ ArbitraryPrecisionInteger operator<< (const ArbitraryPrecisionInteger &a, int ti
 	digit.insert(digit.begin(), zeros.begin(), zeros.end());
 	return ArbitraryPrecisionInteger(a.length + times, digit, a.isNegative());
 }
-
