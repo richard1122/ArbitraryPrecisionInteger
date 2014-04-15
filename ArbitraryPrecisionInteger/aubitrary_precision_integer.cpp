@@ -140,3 +140,10 @@ void AubitraryPrecisionInteger::operator=(const AubitraryPrecisionInteger &num) 
 	this->digit = num.digit;
 	this->length = num.length;
 }
+
+AubitraryPrecisionInteger operator<< (const AubitraryPrecisionInteger &a, int times) {
+	vector<int> digit = a.digit;
+	vector<int> zeros(times, 0);
+	digit.insert(digit.begin(), zeros.begin(), zeros.end());
+	return AubitraryPrecisionInteger(a.length + times, digit, a.isNegative());
+}

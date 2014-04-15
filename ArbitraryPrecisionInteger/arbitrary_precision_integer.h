@@ -29,6 +29,8 @@ public:
 	friend AubitraryPrecisionInteger operator* (const AubitraryPrecisionInteger &, bool);
 	friend AubitraryPrecisionInteger operator- (const AubitraryPrecisionInteger &);
 	friend AubitraryPrecisionInteger operator- (const AubitraryPrecisionInteger &, const AubitraryPrecisionInteger &);
+	// 左移运算（每次意味着*10)
+	friend AubitraryPrecisionInteger operator<< (const AubitraryPrecisionInteger &, int);
 	void operator= (const AubitraryPrecisionInteger &);
 	void raw_output(ostream&) const;
 };

@@ -4,9 +4,8 @@ using namespace std;
 
 int main() {
 	AubitraryPrecisionInteger a(12345), b(-12344);
-	AubitraryPrecisionInteger result = a + b;
+	AubitraryPrecisionInteger result = a << 1;
 	result.raw_output(cout);
-	cout << (a < b) << endl;
 	system("pause");
 	return 0;
 }
