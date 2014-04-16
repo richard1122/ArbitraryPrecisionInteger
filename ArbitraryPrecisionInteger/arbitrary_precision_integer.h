@@ -25,6 +25,7 @@ public:
 	ArbitraryPrecisionInteger();
 	ArbitraryPrecisionInteger(int);
 	ArbitraryPrecisionInteger(const int &, const vector<int> &, bool);
+
 	friend ArbitraryPrecisionInteger operator+(const ArbitraryPrecisionInteger&, const ArbitraryPrecisionInteger&);
 	friend ArbitraryPrecisionInteger operator+(const ArbitraryPrecisionInteger&, int);
 	friend bool operator<(const ArbitraryPrecisionInteger &, const ArbitraryPrecisionInteger &);
@@ -45,9 +46,12 @@ public:
 	friend ArbitraryPrecisionInteger operator% (const ArbitraryPrecisionInteger &, const ArbitraryPrecisionInteger &);
 	// 判等
 	friend bool operator== (const ArbitraryPrecisionInteger &, const ArbitraryPrecisionInteger &);
+	// 不等于
+	friend bool operator!= (const ArbitraryPrecisionInteger &, const ArbitraryPrecisionInteger &);
 	ArbitraryPrecisionInteger& operator= (const ArbitraryPrecisionInteger &);
 	ArbitraryPrecisionInteger& operator= (int n);
 	void raw_output(ostream&) const;
+	ArbitraryPrecisionInteger pow(int) const;
 };
 
 #endif

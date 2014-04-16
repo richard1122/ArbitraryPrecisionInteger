@@ -240,3 +240,14 @@ bool operator== (const ArbitraryPrecisionInteger &a, const ArbitraryPrecisionInt
 bool operator>=(const ArbitraryPrecisionInteger &a, const ArbitraryPrecisionInteger &b) {
 	return !(a < b);
 }
+
+bool operator!= (const ArbitraryPrecisionInteger &a, const ArbitraryPrecisionInteger &b) {
+	return !(a == b);
+}
+
+ArbitraryPrecisionInteger ArbitraryPrecisionInteger::pow(int n) const {
+	ArbitraryPrecisionInteger temp(*this);
+	while (--n) temp = temp * *this;
+	return temp;
+}
+
