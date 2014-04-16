@@ -10,7 +10,7 @@ const int WIDTH = 128;
 
 // 生成一个超大的随机数，传入二进制位宽
 ArbitraryPrecisionInteger generateArbitraryPrecisionRandomInteger(int);
-// a^b % p
+// a^b % p，二分法优化
 ArbitraryPrecisionInteger modular(
 	ArbitraryPrecisionInteger,
 	ArbitraryPrecisionInteger,
@@ -33,21 +33,21 @@ int main() {
 	p.raw_output(cout);
 	cout << endl;
 
-	const int a = rand() % 32 + 1, b = rand() % 32 + 1;
+	const int a = rand(), b = rand();
 	cout << "Alice choose secret integer: \t" << a << endl;
 	cout << "Bob choose secret integer: \t" << b << endl;
 	cout << endl;
 
-	ArbitraryPrecisionInteger A = g.pow(a) % p;
-	ArbitraryPrecisionInteger B = g.pow(b) % p;
+	ArbitraryPrecisionInteger A = modular(g, a, p);
+	ArbitraryPrecisionInteger B = modular(g, b, p);
 	cout << "Alice's A is: \t";
 	A.raw_output(cout);
 	cout << "Bob's B is: \t";
 	B.raw_output(cout);
 	cout << endl;
 
-	ArbitraryPrecisionInteger s1 = B.pow(a) % p;
-	ArbitraryPrecisionInteger s2 = A.pow(b) % p;
+	ArbitraryPrecisionInteger s1 = modular(B, a, p);
+	ArbitraryPrecisionInteger s2 = modular(A, b, p);
 	cout << "Key Alice calc: \t";
 	s1.raw_output(cout);
 	cout << "Key Bob calc: \t\t";

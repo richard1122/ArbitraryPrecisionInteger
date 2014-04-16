@@ -14,8 +14,7 @@ ArbitraryPrecisionInteger::ArbitraryPrecisionInteger(int num) : ArbitraryPrecisi
 	resetZero();
 }
 
-ArbitraryPrecisionInteger::ArbitraryPrecisionInteger(const int &len, const vector<int> &vec, bool negative) {
-	ArbitraryPrecisionInteger();
+ArbitraryPrecisionInteger::ArbitraryPrecisionInteger(const int &len, const vector<int> &vec, bool negative) : ArbitraryPrecisionInteger() {
 	this->length = len;
 	this->digit = vec;
 	this->negative = negative;
